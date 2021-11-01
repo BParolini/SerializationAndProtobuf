@@ -8,3 +8,7 @@ out/
 .settings/
 *.iml
 .DS_Store
+*.binary
+
+binaryOutput/*
+!binaryOutput/.gitkeep

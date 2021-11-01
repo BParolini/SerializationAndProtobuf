@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package io.bparolini.protobuf.model;
+
+option java_package = "io.bparolini.protobuf.model";
+option java_generate_equals_and_hash = true;
+option java_multiple_files = false;
+
+message UUID {
+    string value = 1;
+}
+
+message Person {
+    UUID id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string document = 4;
+}
+
+message People {
+    repeated Person people = 1;
+}

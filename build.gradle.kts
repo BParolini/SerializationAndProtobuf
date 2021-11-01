@@ -38,13 +38,6 @@ sourceSets {
             exclude("google/**/*.proto")
         }
     }
-    test {
-        proto {
-            srcDir("src/test/proto")
-            include("**/*.proto")
-            exclude("google/**/*.proto")
-        }
-    }
 }
 
 repositories {
@@ -65,6 +58,11 @@ dependencies {
 tasks {
     test {
         useJUnitPlatform()
+    }
+    withType<Copy> {
+        filesMatching("**/*.proto") {
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        }
     }
 }
 
