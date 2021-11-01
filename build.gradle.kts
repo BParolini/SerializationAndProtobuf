@@ -56,6 +56,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:$protobufVersion")
 
     implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")

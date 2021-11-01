@@ -1,5 +1,6 @@
 package io.bparolini;
 
+import io.bparolini.json.JsonSerialization;
 import io.bparolini.protobuf.PersonProtobufSerialization;
 import io.bparolini.protobuf.model.PersonOuterClass;
 import io.bparolini.serialization.model.Person;
@@ -24,12 +25,15 @@ public class Main {
         PersonOuterClass.People peopleProto = fromPeopleToProto(peopleSerialization);
         String protobufSerializationFileName = PersonProtobufSerialization.serializePerson(peopleProto);
 
-        printBinarySize(javaSerializationFileName, protobufSerializationFileName);
+        String jsonSerializationFileName = JsonSerialization.serializePerson(peopleSerialization);
+
+        printBinarySize(javaSerializationFileName, protobufSerializationFileName, jsonSerializationFileName);
     }
 
-    private static void printBinarySize(String javaSerializationFileName, String protobufSerializationFileName) {
+    private static void printBinarySize(String javaSerializationFileName, String protobufSerializationFileName, String jsonSerializationFileName) {
         System.out.printf("Java serialization file size in bytes: %s%n", getSizeInBytes(javaSerializationFileName));
         System.out.printf("Protobuf serialization file size in bytes: %s%n", getSizeInBytes(protobufSerializationFileName));
+        System.out.printf("JSON serialization file size in bytes: %s%n", getSizeInBytes(jsonSerializationFileName));
     }
 
     private static String getSizeInBytes(String fileName) {
