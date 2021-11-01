@@ -1,4 +1,6 @@
-package io.bparolini.serialization.model;
+package io.bparolini.serialization.service;
+
+import io.bparolini.serialization.model.Person;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

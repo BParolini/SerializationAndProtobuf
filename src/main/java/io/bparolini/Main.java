@@ -3,21 +3,21 @@ package io.bparolini;
 import io.bparolini.protobuf.PersonProtobufSerialization;
 import io.bparolini.protobuf.model.PersonOuterClass;
 import io.bparolini.serialization.model.Person;
-import io.bparolini.serialization.model.PersonSerialization;
+import io.bparolini.serialization.service.PersonSerialization;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        var peopleSerialization = new ArrayList<Person>();
-        peopleSerialization.add(new Person(UUID.randomUUID(), "Bruno", "Parolini", "123456789-00"));
-        peopleSerialization.add(new Person(UUID.randomUUID(), "John", "Wick", "123456789-00"));
-        peopleSerialization.add(new Person(UUID.randomUUID(), "Aelin", "Galathynius", "123456789-00"));
+        var peopleSerialization = IntStream.range(0, 20)
+            .mapToObj(value -> new Person())
+            .collect(Collectors.toList());
 
         String javaSerializationFileName = PersonSerialization.serializePerson(peopleSerialization);
 
@@ -44,7 +44,7 @@ public class Main {
         return String.format("(Could not find extract size information from %s)", fileName);
     }
 
-    private static PersonOuterClass.People fromPeopleToProto(ArrayList<Person> peopleSerialization) {
+    private static PersonOuterClass.People fromPeopleToProto(List<Person> peopleSerialization) {
         var peopleBuilder = PersonOuterClass.People.newBuilder();
 
         var personBuilder = PersonOuterClass.Person.newBuilder();
