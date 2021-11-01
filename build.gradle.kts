@@ -21,6 +21,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+application {
+    mainClass.set("io.bparolini.Main")
+}
+
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:$protocVersion"
