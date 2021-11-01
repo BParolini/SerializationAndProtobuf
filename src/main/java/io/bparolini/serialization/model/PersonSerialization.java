@@ -6,8 +6,10 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 public final class PersonSerialization {
-    public static void serializePerson(List<Person> personList) {
-        try (FileOutputStream fos = new FileOutputStream("binaryOutput/java_serialization.binary");
+    public static String serializePerson(List<Person> personList) {
+        String binaryFileName = "binaryOutput/java_serialization.binary";
+
+        try (FileOutputStream fos = new FileOutputStream(binaryFileName);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             for (Person person : personList) {
                 oos.writeObject(person);
@@ -15,5 +17,7 @@ public final class PersonSerialization {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return binaryFileName;
     }
 }

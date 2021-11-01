@@ -6,11 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public final class PersonProtobufSerialization {
-    public static void serializePerson(PersonOuterClass.People people) {
-        try (FileOutputStream fos = new FileOutputStream("binaryOutput/protobuf_serialization.binary")) {
+    public static String serializePerson(PersonOuterClass.People people) {
+        String binaryFileName = "binaryOutput/protobuf_serialization.binary";
+
+        try (FileOutputStream fos = new FileOutputStream(binaryFileName)) {
             people.writeTo(fos);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return binaryFileName;
     }
 }

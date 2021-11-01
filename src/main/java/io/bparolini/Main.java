@@ -5,6 +5,10 @@ import io.bparolini.protobuf.model.PersonOuterClass;
 import io.bparolini.serialization.model.Person;
 import io.bparolini.serialization.model.PersonSerialization;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -15,10 +19,29 @@ public class Main {
         peopleSerialization.add(new Person(UUID.randomUUID(), "John", "Wick", "123456789-00"));
         peopleSerialization.add(new Person(UUID.randomUUID(), "Aelin", "Galathynius", "123456789-00"));
 
-        PersonSerialization.serializePerson(peopleSerialization);
+        String javaSerializationFileName = PersonSerialization.serializePerson(peopleSerialization);
 
         PersonOuterClass.People peopleProto = fromPeopleToProto(peopleSerialization);
-        PersonProtobufSerialization.serializePerson(peopleProto);
+        String protobufSerializationFileName = PersonProtobufSerialization.serializePerson(peopleProto);
+
+        printBinarySize(javaSerializationFileName, protobufSerializationFileName);
+    }
+
+    private static void printBinarySize(String javaSerializationFileName, String protobufSerializationFileName) {
+        System.out.printf("Java serialization file size in bytes: %s%n", getSizeInBytes(javaSerializationFileName));
+        System.out.printf("Protobuf serialization file size in bytes: %s%n", getSizeInBytes(protobufSerializationFileName));
+    }
+
+    private static String getSizeInBytes(String fileName) {
+        Path filePath = Paths.get(fileName);
+        try {
+            long size = Files.size(filePath);
+            return String.format("%d bytes", size);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return String.format("(Could not find extract size information from %s)", fileName);
     }
 
     private static PersonOuterClass.People fromPeopleToProto(ArrayList<Person> peopleSerialization) {
